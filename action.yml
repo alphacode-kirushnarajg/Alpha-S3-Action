@@ -24,6 +24,7 @@ inputs:
   sftp_extra_args:
     description: 'sftp args'
     required: false
+    default: ""
 
 runs:
   using: 'docker'

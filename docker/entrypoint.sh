@@ -12,7 +12,10 @@ fi
 echo 'Using SSH password authentication...'
 
 echo 'Resetting remote directory...'
-sshpass -p "${4}" ssh -o StrictHostKeyChecking=no -p "${3}" "${1}@${2}" "rm -rf ${6} && mkdir -p ${6}"
+sshpass -p "${4}" ssh -o StrictHostKeyChecking=no -p "${3}" "${1}@${2}" "rm -rf ${6} || echo 'Directory does not exist, skipping delete...'"
+
+echo "Creating remote directory..."
+sshpass -p "${4}" ssh -o StrictHostKeyChecking=no -p "${3}" "${1}@${2}" "mkdir -p ${6}"
 
 echo 'Starting upload to s3...'
 printf "%s" "put -r ${5} ${6}" >${TEMP_SFTP_FILE}

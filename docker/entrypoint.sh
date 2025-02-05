@@ -16,7 +16,7 @@ sshpass -p "${4}" ssh -o StrictHostKeyChecking=no -p "${3}" "${1}@${2}" "mkdir -
 
 echo 'Starting upload to s3...'
 printf "%s" "put -r ${5} ${6}" >${TEMP_SFTP_FILE}
-SSHPASS="${4}" sshpass -e sftp -oBatchMode=no -b "${TEMP_SFTP_FILE}" -P "${3}" ${8} -o StrictHostKeyChecking=no "${1}@${2}"
+SSHPASS="${4}" sshpass -e sftp -oBatchMode=no -b "${TEMP_SFTP_FILE}" -P "${3}" ${7} -o StrictHostKeyChecking=no "${1}@${2}"
 
 echo 'Deployment successful!'
 exit 0

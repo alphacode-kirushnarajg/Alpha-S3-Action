@@ -1,0 +1,42 @@
+name: 'Alpha S3 Actions'
+description: 'Deploy artifact to S3 bucket using sftp'
+inputs:
+  sftp_username:
+    description: 'SFTP username'
+    required: true
+  sftp_server:
+    description: 'SFTP server address'
+    required: true
+  sftp_port:
+    description: 'SFTP server port (default: 22)'
+    required: true
+    default: "22"
+  ssh_password:
+    description: "SSH passsword (If a password is set, the secret key pair is ignored)"
+    required: true
+  local_source_path:
+    description: 'will put all file under this path'
+    required: true
+    default: ./*
+  remote_destination_path:
+    description: 'files will copy to under remote_path'
+    required: true
+  sftp_extra_args:
+    description: 'sftp args'
+    required: false
+
+runs:
+  using: 'docker'
+  image: './docker/Dockerfile'
+  args:
+    - ${{ inputs.sftp_username }}
+    - ${{ inputs.sftp_server }}
+    - ${{ inputs.sftp_port }}
+    - ${{ inputs.sftp_password }}
+    - ${{ inputs.local_source_path }}
+    - ${{ inputs.remote_destination_path }}
+    - ${{ inputs.sftp_extra_args }}
+
+branding:
+  icon: 'terminal'
+  color: 'blue'
